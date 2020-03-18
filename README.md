@@ -29,5 +29,5 @@ Ketika pertama aktif, custom script akan membuka WhatsApp Web dan kita diharuska
 
 \*PC yang selalu aktif 24/7 tentu tidak *cost-effective*. Terdapat cara lain menginstall software ini pada smartphone android yang sudah dimodifikasi menjadi linux computer (menggunakan Termux & Andronix). Guidenya menyusul.
 
-![login-page](/home/snake/projects/aptalia/00-login.png) |![main-menu](/home/snake/projects/aptalia/01-main-menu.png) |![data-pasien-menu](/home/snake/projects/aptalia/02-data-pasien.png) |![data-obat-menu](/home/snake/projects/aptalia/03-data-obat.png) |![data-kunjungan-menu](/home/snake/projects/aptalia/04-data-kunjungan.png) 
----|---|---|---|---
+![login-page](/home/snake/projects/aptalia/00-login.png) |![main-menu](/home/snake/projects/aptalia/01-main-menu.png) |![data-pasien-menu](/home/snake/projects/aptalia/02-data-pasien.png)
+---|---|
