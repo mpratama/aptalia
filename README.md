@@ -22,7 +22,12 @@ python -m pip install -r requirements.txt
 *Software* ini akan bekerja pagi-siang-malam-pagi 24/7 mengirimkan pesan pengingat minum obat ke nomor *WhatsApp* pasien melalui [WhatsApp Web](https://web.whatsapp.com). Jadi, untuk menjalankan software ini membutuhkan; No.WA aktif, koneksi internet, PC aktif 24/7\*, dan tentu saja--sedikit pengetahuan tentang *how software works* & *command line*.
 
 Directory pmowa dari repo ini adalah program [Django](https://www.djangoproject.com) dengan tambahan sebuah custom script aktifkan_pengingat.py. Siapkan 2 window command line pada directory ini. Gunakan 1 window untuk menjalankan Django `python manage.py runserver` dan 1 window lainnya untuk menjalankan custom script `python aktifkan_pengingat.py`.
-Django framework berfungsi sebagai *user interface* untuk memanage data pasien (kontak WA pasien), manage data obat, dan mencatat waktu minum obat serta rentang waktu pengobatan pasien.
-Custom script berfungsi sebagai *watcher*--di dalam script tersebut terbagi menjadi beberapa program kecil yang bekerja secara simultan membuka halaman WhatsApp Web=>mengakses database=>memantau waktu minum setiap obat=>mengirim pesan pada pasien sesuai schedule.
 
-\*\*PC yang aktif 24/7 tentu tidak *cost-effective*. Terdapat cara lain menginstall software ini pada smartphone android yang sudah dimodifikasi menjadi linux computer (menggunakan Termux & Andronix). Guidenya menyusul.
+Django framework berfungsi sebagai *user interface* untuk memanage data pasien (kontak WA pasien), manage data obat, dan mencatat waktu minum obat serta rentang waktu pengobatan pasien.
+
+Ketika pertama aktif, custom script akan membuka WhatsApp Web dan kita diharuskan login dengan scan QR code dari aplikasi WhatsApp smartphone. Custom script berfungsi sebagai *watcher*--di dalam script tersebut terbagi menjadi beberapa program kecil yang bekerja secara simultan membuka halaman WhatsApp Web=>mengakses database=>memantau waktu minum setiap obat=>mengirim pesan pada pasien sesuai schedule.
+
+\*PC yang selalu aktif 24/7 tentu tidak *cost-effective*. Terdapat cara lain menginstall software ini pada smartphone android yang sudah dimodifikasi menjadi linux computer (menggunakan Termux & Andronix). Guidenya menyusul.
+
+![login-page](/home/snake/projects/aptalia/00-login.png) |![main-menu](/home/snake/projects/aptalia/01-main-menu.png) |![data-pasien-menu](/home/snake/projects/aptalia/02-data-pasien.png) |![data-obat-menu](/home/snake/projects/aptalia/03-data-obat.png) |![data-kunjungan-menu](/home/snake/projects/aptalia/04-data-kunjungan.png) 
+---|---|---|---|---
