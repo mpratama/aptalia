@@ -38,15 +38,23 @@ class DataPasien(models.Model):
         verbose_name_plural = "Data Pasien"
         
 class DataObat(models.Model):
-    nama_obat = models.CharField(max_length=50, help_text="Tulis nama obat dan dosisnya")
+    nama_obat = models.CharField(max_length=100, help_text="Tulis nama obat dan dosisnya")
     SAT = (
         ('TAB', 'Tablet'),
+        ('SYR', 'Sirup'),
         ('CAP', 'Kapsul'),
         ('BKS', 'Bungkus'),
+        ('SAL', 'Salep'),
+        ('CRM', 'Krim'),
+        ('PCS', 'Pcs'),
+        ('BTL', 'Botol'),
+        ('SET', 'Set'),
+        ('KTK', 'Kotak'),
         )
     satuan = models.CharField(max_length=3, choices=SAT, help_text="Bentuk sediaan", verbose_name="Bentuk sediaan")
+    ab = models.BooleanField(help_text="Check jika termasuk antibiotik", verbose_name="Antibiotik?")
     def __str__(self):
-        return str(self.nama_obat) + " " + str(self.satuan)
+        return str(self.nama_obat)
     class Meta:
         verbose_name_plural = "Data Obat"
 

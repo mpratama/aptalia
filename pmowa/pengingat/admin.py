@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import DataPasien, DataObat, Kunjungan, Resep
 from django.contrib.auth.models import User, Group
+from django.conf import settings
 
 class ResepInline(admin.StackedInline):
     model = Resep
@@ -44,6 +45,6 @@ admin.site.register(Kunjungan, KunjunganAdmin)
 admin.site.unregister(User)
 admin.site.unregister(Group)
 
-admin.site.site_header = "PMO-WhatsApp"
-admin.site.site_title = "AptAlia"
-admin.site.index_title = "Menu"
+admin.site.site_header = settings.SITE_HEADER
+admin.site.site_title = settings.SITE_TITLE
+admin.site.index_title = settings.INDEX_TITLE
