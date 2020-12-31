@@ -22,8 +22,15 @@ tglatas = input("Masukkan batas atas: ")
 # query obat golongan antibiotik
 antibiotik = DataObat.objects.filter(ab=True)
 
-# query data kunjungan beserta atribut2 dan filternya
-data = Resep.objects.filter(kunjungan_pasien__tanggal_kunjungan__gte=datetime.date(int(tglbwh[6:11]),int(tglbwh[3:5]),int(tglbwh[0:2]))).filter(kunjungan_pasien__tanggal_kunjungan__lt=datetime.date(int(tglatas[6:11]),int(tglatas[3:5]),int(tglatas[0:2]))).filter(kunjungan_pasien__diagnosa__diagnosa="ISPA")
+# method pengambil data utama
+def grabdata(penyakit):
+    data = Resep.objects.filter(kunjungan_pasien__tanggal_kunjungan__gte=datetime.date(int(tglbwh[6:11]),int(tglbwh[3:5]),int(tglbwh[0:2]))).filter(kunjungan_pasien__tanggal_kunjungan__lt=datetime.date(int(tglatas[6:11]),int(tglatas[3:5]),int(tglatas[0:2]))).filter(kunjungan_pasien__diagnosa__diagnosa=penyakit)
+    return data
+    
+print("Tunggu sebentar: Mengambil data ISPA.....")
+ispa = grabdata("ISPA")
+print("Tunggu sebentar: Mengambil data Diare.....")
+diare = grabdata("Diare")
 
 # mulai ke bawah sini hoream dokumentasi, baca weh olangan
 # terutama konsep enumerate list
@@ -113,16 +120,20 @@ def hitung_jml(data):
             counter = 1
     return jml_cleaned
     
-    
-nm_obat = pd.Series([x.obat.nama_obat for x in data])
-nm_pasien = pd.Series(namapas(data))
-kol_tgl = pd.Series(koltgl(data, nm_pasien))
-kol_usia = pd.Series(regex_usia(nm_pasien))
-kol_num = pd.Series(kolno(kol_tgl))
-kol_aturan = pd.Series([x.aturan_minum for x in data])
-kol_lama_pengobatan = pd.Series([x.lama_pengobatan for x in data])
-kol_antibiotik = pd.Series(isAntibiotik(nm_obat))
-
-df = pd.DataFrame({"Tanggal": kol_tgl})
-df = df.join(pd.DataFrame({"Nomor": kol_num})).join(pd.DataFrame({"Nama Pasien": nm_pasien})).join(pd.DataFrame({"Umur": kol_usia})).join(pd.DataFrame({"Obat": nm_obat})).join(pd.DataFrame({"Antibiotik?": kol_antibiotik})).join(pd.DataFrame({"Aturan Pakai": kol_aturan})).join(pd.DataFrame({"Lama Pengobatan (hari)": kol_lama_pengobatan})).join(pd.DataFrame({"Jumlah Item": hitung_jml(data)}))
-df.to_excel("POR-ISPA__{}_{}.xlsx".format(tglbwh, tglatas))
+def generate_excel(penyakit,diagnosa):
+    nm_obat = pd.Series([x.obat.nama_obat for x in penyakit])
+    nm_pasien = pd.Series(namapas(penyakit))
+    kol_tgl = pd.Series(koltgl(penyakit, nm_pasien))
+    kol_usia = pd.Series(regex_usia(nm_pasien))
+    kol_num = pd.Series(kolno(kol_tgl))
+    kol_aturan = pd.Series([x.aturan_minum for x in penyakit])
+    kol_lama_pengobatan = pd.Series([x.lama_pengobatan for x in penyakit])
+    kol_antibiotik = pd.Series(isAntibiotik(nm_obat))
+    df = pd.DataFrame({"Tanggal": kol_tgl})
+    df = df.join(pd.DataFrame({"Nomor": kol_num})).join(pd.DataFrame({"Nama Pasien": nm_pasien})).join(pd.DataFrame({"Umur": kol_usia})).join(pd.DataFrame({"Obat": nm_obat})).join(pd.DataFrame({"Antibiotik?": kol_antibiotik})).join(pd.DataFrame({"Aturan Pakai": kol_aturan})).join(pd.DataFrame({"Lama Pengobatan (hari)": kol_lama_pengobatan})).join(pd.DataFrame({"Jumlah Item": hitung_jml(penyakit)}))
+    print("Tunggu sebentar: Menyusun file excel POR {} dari tanggal {} sampai {}".format(diagnosa, tglbwh, tglatas))
+    df.to_excel("POR-{}__{}_{}.xlsx".format(diagnosa, tglbwh, tglatas))
+        
+generate_excel(ispa, "ISPA")
+generate_excel(diare, "Diare")
+print("Selesai...")
