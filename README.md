@@ -5,7 +5,7 @@ Apt-anti-lupa-ingat-anda; adalah *AI* yang dapat mengingatkan pasien supaya tida
 Aptalia adalah program python yang diinstall ke dalam komputer.
 
 ## Untuk apa?
-Penulis program menciptakan *software* ini berawal dari kekhawatiran kurangnya kepatuhan pasien dalam minum obat terutama obat-obatan yang aturan minumnya berdasarkan waktu-waktu tertentu (mis: antibiotik, antihipertensi, antidiabetik). Penggunaan obat-obat tersebut termasuk kontinyu dan konstan pada satu waktu minum dan ada resiko jika lupa / terlewat maka terapi menjadi terganggu dan menimbulkan efek tdk diinginkan (mis: antibiotik => resiko resistensi).
+Penulis program menciptakan *software* ini berawal dari kekhawatiran kurangnya kepatuhan pasien dalam minum obat terutama obat-obatan yang aturan minumnya berdasarkan patokan waktu-waktu tertentu (mis: antibiotik, antihipertensi, antidiabetik). Penggunaan obat-obat tersebut termasuk kontinyu dan konstan pada satu waktu minum dan ada resiko jika lupa / terlewat maka terapi menjadi terganggu dan menimbulkan efek tdk diinginkan (mis: antibiotik => resiko resistensi).
 
 ## Cara install
 - Install [Python 3](https://www.python.org/downloads) 
@@ -27,7 +27,10 @@ Django framework berfungsi sebagai *user interface* untuk memanage data pasien (
 
 Ketika pertama aktif, custom script akan membuka WhatsApp Web dan kita diharuskan login dengan scan QR code dari aplikasi WhatsApp smartphone. Custom script berfungsi sebagai *watcher*--di dalam script tersebut terbagi menjadi beberapa program kecil yang bekerja secara simultan membuka halaman WhatsApp Web=>mengakses database=>memantau waktu minum setiap obat=>mengirim pesan pada pasien sesuai schedule.
 
-\*PC yang selalu aktif 24/7 tentu tidak *cost-effective*. Terdapat cara lain menginstall software ini pada smartphone android yang sudah dimodifikasi menjadi linux computer (menggunakan Termux & Andronix). Guidenya menyusul.
+>\*PC yang selalu aktif 24/7 tentu tidak *cost-effective*. Terdapat cara lain menginstall software ini pada smartphone android yang sudah dimodifikasi menjadi linux computer (menggunakan Termux & Andronix). Guidenya menyusul.
+
+## Django interface
+Software ini menggunakan Django untuk memanage data. Setelah Django runserver buka web browser dan klik `http://localhost:8000` login dengan user `admin` dan password `admin12345` (bisa diganti). Berikut tampilan
 
 ![login-page](https://raw.githubusercontent.com/mpratama/aptalia/master/00-login.png) |![main-menu](https://raw.githubusercontent.com/mpratama/aptalia/master/01-main-menu.png) 
 :---:|:---:
