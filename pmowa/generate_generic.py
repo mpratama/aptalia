@@ -11,8 +11,17 @@ django.setup()
 from penggunaanobat.models import Resep, DataKunjungan
 
 # prompt user
-tglbwh = input("Masukkan tanggal awal: ")
-tglatas = input("Masukkan batas atas: ")
+tglbwh = input("""
+Masukkan tanggal awal, dengan format DD-MM-YYYY
+Contoh: 01-12-2020
+
+Tanggal awal: """)
+
+tglatas = input("""
+Masukkan tanggal akhir, dengan format DD-MM-YYYY
+Contoh: 30-12-2020
+    
+Tanggal akhir: """)
 
 non_generic = ["Scabimite (Permetrin) 5% krim 10 gr", "Carboxymetyhlcelulose (Cendo Cenfresh) eye drop 5 ml", "Cendo Lyteers 15 ml", "Cendo Xitrol eye drop 5 ml", "Lactobacillus", "Multivitamin dan mineral tetes sirup@ 15 ml", "Pehavral vitamin", "Anvomer B6", "Tremenza", "Thrombopob gel", "Bioplacenton Neocenta"]
 
