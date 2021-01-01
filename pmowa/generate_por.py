@@ -16,15 +16,24 @@ from penggunaanobat.models import Resep
 from pengingat.models import DataObat
 
 # prompt user
-tglbwh = input("Masukkan tanggal awal: ")
-tglatas = input("Masukkan batas atas: ")
+tglbwh = input("""
+Masukkan tanggal awal, dengan format DD-MM-YYYY
+Contoh: 01-12-2020
+
+Tanggal awal: """)
+
+tglatas = input("""
+Masukkan tanggal akhir, dengan format DD-MM-YYYY
+Contoh: 30-12-2020
+    
+Tanggal akhir: """)
 
 # query obat golongan antibiotik
 antibiotik = DataObat.objects.filter(ab=True)
 
 # method pengambil data utama
 def grabdata(penyakit):
-    data = Resep.objects.filter(kunjungan_pasien__tanggal_kunjungan__gte=datetime.date(int(tglbwh[6:11]),int(tglbwh[3:5]),int(tglbwh[0:2]))).filter(kunjungan_pasien__tanggal_kunjungan__lt=datetime.date(int(tglatas[6:11]),int(tglatas[3:5]),int(tglatas[0:2]))).filter(kunjungan_pasien__diagnosa__diagnosa=penyakit)
+    data = Resep.objects.filter(kunjungan_pasien__tanggal_kunjungan__gte=datetime.date(int(tglbwh[6:11]),int(tglbwh[3:5]),int(tglbwh[0:2]))).filter(kunjungan_pasien__tanggal_kunjungan__lte=datetime.date(int(tglatas[6:11]),int(tglatas[3:5]),int(tglatas[0:2]))).filter(kunjungan_pasien__diagnosa__diagnosa=penyakit)
     return data
     
 print("Tunggu sebentar: Mengambil data ISPA.....")
@@ -130,10 +139,10 @@ def generate_excel(penyakit,diagnosa):
     kol_lama_pengobatan = pd.Series([x.lama_pengobatan for x in penyakit])
     kol_antibiotik = pd.Series(isAntibiotik(nm_obat))
     df = pd.DataFrame({"Tanggal": kol_tgl})
-    df = df.join(pd.DataFrame({"Nomor": kol_num})).join(pd.DataFrame({"Nama Pasien": nm_pasien})).join(pd.DataFrame({"Umur": kol_usia})).join(pd.DataFrame({"Obat": nm_obat})).join(pd.DataFrame({"Antibiotik?": kol_antibiotik})).join(pd.DataFrame({"Aturan Pakai": kol_aturan})).join(pd.DataFrame({"Lama Pengobatan (hari)": kol_lama_pengobatan})).join(pd.DataFrame({"Jumlah Item": hitung_jml(penyakit)}))
+    df = df.join(pd.DataFrame({"Nomor": kol_num})).join(pd.DataFrame({"Nama Pasien": nm_pasien})).join(pd.DataFrame({"Umur": kol_usia})).join(pd.DataFrame({"Obat": nm_obat})).join(pd.DataFrame({"Jumlah Item": hitung_jml(penyakit)})).join(pd.DataFrame({"Antibiotik?": kol_antibiotik})).join(pd.DataFrame({"Aturan Pakai": kol_aturan})).join(pd.DataFrame({"Lama Pengobatan (hari)": kol_lama_pengobatan})).join(pd.DataFrame({"": []})).join(pd.DataFrame({"©": ["", "Laporan POR Generator", "Pratama © {}".format(datetime.datetime.now().year), "https://linktr.ee/pratama24"]}))
     print("Tunggu sebentar: Menyusun file excel POR {} dari tanggal {} sampai {}".format(diagnosa, tglbwh, tglatas))
     df.to_excel("POR-{}__{}_{}.xlsx".format(diagnosa, tglbwh, tglatas))
         
 generate_excel(ispa, "ISPA")
 generate_excel(diare, "Diare")
-print("Selesai...")
+print("\nSelesai...")
