@@ -11,6 +11,7 @@ django.setup()
 from penggunaanobat.models import Resep
 
 def grab_data(tglbwh, tglatas):
+    print("\nSedang memproses...")
     q = Resep.objects.filter(kunjungan_pasien__tanggal_kunjungan__gte=datetime.date(int(tglbwh[6:11]),int(tglbwh[3:5]),int(tglbwh[0:2]))).filter(kunjungan_pasien__tanggal_kunjungan__lte=datetime.date(int(tglatas[6:11]),int(tglatas[3:5]),int(tglatas[0:2]))).order_by('obat')
     return q
     
@@ -49,6 +50,9 @@ def main():
     daftar_obat = hitung_jenis(query)
     jumlahnya = generate_excel(daftar_obat, query, tglbwh, tglatas)
     
-    print("Selesai..")
+    print("\nLaporan Pemakain_BMHP__{}_{}.xlsx selesai dicetak.".format(tglbwh, tglatas))
     
     exit()
+    
+if __name__ == "__main__":
+    main()

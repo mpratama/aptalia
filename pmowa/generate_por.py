@@ -145,4 +145,4 @@ def generate_excel(penyakit,diagnosa):
         
 generate_excel(ispa, "ISPA")
 generate_excel(diare, "Diare")
-print("\nSelesai...")
+print("\nLaporan POR ISPA dan diare tgl {} sampai {} selesai dicetak.".format(tglbwh, tglatas))

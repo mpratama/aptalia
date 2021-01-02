@@ -130,8 +130,8 @@ def generate_pandas():
     
     frames = pd.concat([suz, nur, dwi, intern])
     print("Mengexpor ke fail excel...")
-    frames.to_excel("LAP-GENERIC__{}-{}.xlsx".format(tglbwh, tglatas))
+    frames.to_excel("LAP-GENERIC__{}_{}.xlsx".format(tglbwh, tglatas))
     
-    print("\n Selesai..")
+    print("\n LAP-GENERIC__{}-{}.xlsx selesai dicetak..".format(tglbwh, tglatas))
     
 generate_pandas()
